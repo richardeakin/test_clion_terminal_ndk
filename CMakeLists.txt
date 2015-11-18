@@ -39,6 +39,8 @@ endif()
 # Toolchain prefix
 set( NKD_TOOLCHAIN_ROOT "${NDK_ROOT}/toolchains/${NDK_TOOLCHAIN_DIR}/prebuilt/${NDK_TOOLCHAIN_HOST}" )
 
+set( NDK_STDLIB_PATH "${NDK_ROOT}/platforms/${NDK_PLATFORM_DIR}/arch-arm/usr/lib" )
+
 # sysroot
 set( NDK_SYSROOT "${NDK_ROOT}/platforms/${NDK_PLATFORM_DIR}/arch-arm" )
 set( CMAKE_SYSROOT ${NDK_SYSROOT} CACHE FILEPATH "" FORCE )
@@ -56,7 +58,7 @@ set( CMAKE_RANLIB       ${NKD_TOOLCHAIN_ROOT}/bin/${NDK_TOOLCHAIN_PREFIX}-ranlib
 set( CMAKE_STRIP        ${NKD_TOOLCHAIN_ROOT}/bin/${NDK_TOOLCHAIN_PREFIX}-strip  CACHE FILEPATH "" FORCE )
 
 # print vars
-#message( STATUS "NKD_TOOLCHAIN_ROOT : ${NKD_TOOLCHAIN_ROOT}" )
+message( STATUS "NDK_STDLIB_PATH : ${NDK_STDLIB_PATH}" )
 message( STATUS "LIBRARY_OUTPUT_PATH: ${LIBRARY_OUTPUT_PATH}" )
 message( STATUS "" )
 message( STATUS "CMAKE_C_COMPILER  : ${CMAKE_C_COMPILER}" )
@@ -73,9 +75,7 @@ message( STATUS "" )
 set( CMAKE_C_FLAGS "-Wall -Wextra -Werror" )
 set( CMAKE_CXX_FLAGS "${CXX_FLAGS} -Wall -Wextra -Werror -std=c++11" )
 
-#set( CMAKE_C_FLAGS_DEBUG   "${C_FLAGS} -g -funwind-tables -Wl,--no-merge-exidx-entries" )
-#set( CMAKE_C_FLAGS_RELEASE "${C_FLAGS} -Os -ffast-math" )
-#set( CMAKE_CXX_FLAGS_DEBUG   "${CXX_FLAGS} -g -fexceptions -frtti -funwind-tables -Wl,--no-merge-exidx-entries" )
-#set( CMAKE_CXX_FLAGS_RELEASE "${CXX_FLAGS} -Os -fexceptions -frtti -ffast-math" )
-
 add_executable( test_clion_terminal_ndk main.cpp )
+
+link_directories( NDK_STDLIB_PATH )
+target_link_libraries( test_clion_terminal_ndk stdc++ )
