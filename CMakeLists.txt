@@ -70,13 +70,12 @@ message( STATUS "" )
 message( STATUS "CMAKE_SYSROOT     : ${CMAKE_SYSROOT}" )
 message( STATUS "" )
 
-set( C_FLAGS "-fvisibility=default" )
+set( CMAKE_C_FLAGS "-Wall -Wextra -Werror" )
+set( CMAKE_CXX_FLAGS "${CXX_FLAGS} -Wall -Wextra -Werror -std=c++11" )
 
-set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=default -std=c++11" )
-
-set( CMAKE_C_FLAGS_DEBUG   "${C_FLAGS} -g -funwind-tables -Wl,--no-merge-exidx-entries" )
-set( CMAKE_C_FLAGS_RELEASE "${C_FLAGS} -Os -ffast-math ${C_FLAGS}" )
-set( CMAKE_CXX_FLAGS_DEBUG   "${CXX_FLAGS} -g -fexceptions -frtti -funwind-tables -Wl,--no-merge-exidx-entries" )
-set( CMAKE_CXX_FLAGS_RELEASE "${CXX_FLAGS} -Os -fexceptions -frtti -ffast-math" )
+#set( CMAKE_C_FLAGS_DEBUG   "${C_FLAGS} -g -funwind-tables -Wl,--no-merge-exidx-entries" )
+#set( CMAKE_C_FLAGS_RELEASE "${C_FLAGS} -Os -ffast-math" )
+#set( CMAKE_CXX_FLAGS_DEBUG   "${CXX_FLAGS} -g -fexceptions -frtti -funwind-tables -Wl,--no-merge-exidx-entries" )
+#set( CMAKE_CXX_FLAGS_RELEASE "${CXX_FLAGS} -Os -fexceptions -frtti -ffast-math" )
 
 add_executable( test_clion_terminal_ndk main.cpp )
